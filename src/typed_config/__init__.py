@@ -1,21 +1,22 @@
-"""Typed configuration from environment, .env and JSON files into frozen dataclasses, with aggregated errors, masked secrets and generated docs"""
+"""Typed configuration from environment variables, .env and JSON files into dataclasses."""
 
 from __future__ import annotations
 
-__all__ = ["__version__", "normalize"]
+from .docs import FieldDoc, describe, render_env_example, render_markdown
+from .errors import ConfigError, FieldError
+from .loader import load
+from .secret import Secret
+
+__all__ = [
+    "ConfigError",
+    "FieldDoc",
+    "FieldError",
+    "Secret",
+    "__version__",
+    "describe",
+    "load",
+    "render_env_example",
+    "render_markdown",
+]
 
 __version__ = "0.1.0"
-
-
-def normalize(value: str) -> str:
-    """Return ``value`` trimmed and lower-cased.
-
-    Placeholder API created by the template: replace it with the utility's real behavior.
-
-    Raises:
-        ValueError: if ``value`` is empty or only whitespace.
-    """
-    cleaned = value.strip()
-    if not cleaned:
-        raise ValueError("value must not be empty")
-    return cleaned.lower()
